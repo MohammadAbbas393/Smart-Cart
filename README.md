@@ -1,14 +1,32 @@
-# 🛒 SmartCart — Ziggy's Grocery Demo
+# SmartCart
 
-> A plug-and-play smart shopping app for grocery stores. This demo runs on **Ziggy's Grocery**, a fake test store.
+A smart grocery shopping app that helps customers navigate a store, find products, clip coupons, and get an optimized route through the aisles. Built as a white-label SaaS concept. The demo runs on Ziggy's Grocery, a fully fleshed-out fake store.
 
----
+## Features
 
-## 🚀 Getting Started
+- **Product browsing** - search and filter 60+ products by aisle with inline coupon highlights
+- **Visual store map** - a 10x8 grid of the store showing all aisles, endcaps, entrance, and checkout. Click any aisle to browse its products
+- **Route generator** - once items are in the cart, the app calculates the most efficient path through the store so you don't backtrack
+- **Coupon page** - browse all store and manufacturer coupons with filters by type
+- **Cart page** - full cart with quantity controls, auto-applied coupons, and total savings breakdown
+- **Zero backend needed** - the entire store is defined in one local JS file, so the demo runs with no API or database
+
+## Tech Stack
+
+| Layer | Tech |
+|---|---|
+| Framework | React 18 + React Router v6 |
+| State | React Context API |
+| Styling | CSS custom properties |
+| Icons | Lucide React |
+| Fonts | Syne + DM Sans (Google Fonts) |
+| Data | Local JS module |
+
+## Getting Started
 
 ### Prerequisites
-- Node.js 18+ installed
-- A code editor (VS Code recommended)
+
+- Node.js 18 or higher
 
 ### Installation
 
@@ -25,55 +43,51 @@ npm start
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
----
-
-## 📁 Project Structure
+## Project Structure
 
 ```
 smartcart/
 ├── public/
 │   └── index.html              # HTML entry point
-├── src/
-│   ├── data/
-│   │   └── ziggysDatabase.js   ← 🏪 THE WHOLE FAKE STORE LIVES HERE
-│   │                             Products, aisles, coupons, store map grid
-│   ├── context/
-│   │   └── CartContext.js      ← Global cart state, route generator
-│   ├── components/
-│   │   └── Navbar.js           ← Top nav with cart badge
-│   ├── pages/
-│   │   ├── Home.js             ← Landing page with stats + featured deals
-│   │   ├── StorePage.js        ← Browse all products with search + filter
-│   │   ├── MapPage.js          ← Visual store map + aisle click-through
-│   │   ├── CouponsPage.js      ← All coupons (store + manufacturer)
-│   │   └── CartPage.js         ← Cart items, totals, savings, route
-│   ├── App.js                  ← Router + layout
-│   └── App.css                 ← Full design system (green/orange/white)
-└── package.json
+└── src/
+    ├── data/
+    │   └── ziggysDatabase.js   # The entire fake store lives here
+    ├── context/
+    │   └── CartContext.js      # Global cart state and route generator
+    ├── components/
+    │   └── Navbar.js           # Top nav with cart badge
+    ├── pages/
+    │   ├── Home.js             # Landing page with stats and featured deals
+    │   ├── StorePage.js        # Browse all products with search and filter
+    │   ├── MapPage.js          # Visual store map with aisle click-through
+    │   ├── CouponsPage.js      # All coupons (store and manufacturer)
+    │   └── CartPage.js         # Cart items, totals, savings, and route
+    ├── App.js                  # Router and layout
+    └── App.css                 # Design system (green, orange, white)
 ```
 
----
+## Ziggy's Grocery Store Data
 
-## 🏪 Ziggy's Grocery — Test Data
-
-The fake store is fully defined in `src/data/ziggysDatabase.js`:
+The fake store is defined entirely in `src/data/ziggysDatabase.js`.
 
 | Section | Details |
 |---|---|
-| **Products** | 60+ items across 10 sections |
-| **Aisles** | P (Produce), B (Bakery), 1–8, D (Deli), F (Frozen) |
-| **Coupons** | 10 coupons — mix of store and manufacturer |
-| **Store Map** | 10×8 grid — entrance, aisles, endcaps, checkout |
+| Products | 60+ items across 10 sections |
+| Aisles | P (Produce), B (Bakery), 1 to 8, D (Deli), F (Frozen) |
+| Coupons | 10 coupons, mix of store and manufacturer |
+| Store Map | 10x8 grid with entrance, aisles, endcaps, and checkout |
 
-### To add a new product:
+### Adding a new product
+
 ```js
-// In src/data/ziggysDatabase.js → PRODUCTS array
+// In src/data/ziggysDatabase.js, add to the PRODUCTS array
 { id: "a2007", name: "Pringles", aisle: 2, price: 2.99, unit: "5.5oz", emoji: "🥔", category: "Snacks" },
 ```
 
-### To add a new coupon:
+### Adding a new coupon
+
 ```js
-// In src/data/ziggysDatabase.js → COUPONS array
+// In src/data/ziggysDatabase.js, add to the COUPONS array
 {
   id: "c011", type: "store", brand: "Ziggy's",
   productId: "a2007", productName: "Pringles",
@@ -84,56 +98,35 @@ The fake store is fully defined in `src/data/ziggysDatabase.js`:
 },
 ```
 
----
+## Pages
 
-## 🎯 Features
-
-| Feature | Page | Description |
+| Page | Route | Description |
 |---|---|---|
-| **Product Browse** | /store | Search + filter by aisle, see coupons inline |
-| **Store Map** | /map | Visual 10×8 grid map, click aisles to see products |
-| **Route Generator** | /map + /cart | Generates optimal shopping path from cart items |
-| **Coupons** | /coupons | All store + manufacturer coupons, filter by type |
-| **Cart** | /cart | Items, quantity controls, auto-applied coupons, savings |
+| Home | `/` | Landing page with stats and featured deals |
+| Store | `/store` | Search and filter all products |
+| Map | `/map` | Visual store map and aisle browser |
+| Coupons | `/coupons` | All available coupons |
+| Cart | `/cart` | Cart summary, savings, and shopping route |
 
----
+## Business Model (Pitch)
 
-## 💰 Monetization Model (Pitch)
+This is a SaaS concept. The way it would make money:
 
-1. **Monthly SaaS fee** — charge stores per location to license SmartCart
-2. **Sponsored placement** — brands pay to appear at top of their aisle section
-3. **Coupon data revenue** — sell engagement analytics back to brands
-4. **Manufacturer coupon handling fee** — clip from standard $0.08/coupon reimbursement
+1. **Monthly license fee** - charge grocery stores per location
+2. **Sponsored placement** - brands pay to appear at the top of their aisle section
+3. **Coupon analytics** - sell engagement data back to brands
+4. **Manufacturer coupon handling fee** - earn from the standard reimbursement process
 
----
+The pitch: a store gives us their product and aisle data, we handle everything else. Customers get in-store navigation and coupons. Stores get a new engagement channel and data.
 
-## 🛠️ Tech Stack
+## Scaling Up
 
-| Layer | Tech |
-|---|---|
-| Frontend | React 18 + React Router v6 |
-| State | React Context API |
-| Styling | CSS custom properties (zero Tailwind needed) |
-| Data | Local JS module (no backend, no DB needed for demo) |
-| Icons | Lucide React |
-| Fonts | Syne (display) + DM Sans (body) — Google Fonts |
-
-> **No paid APIs or databases needed.** Everything runs locally.
-
----
-
-## 🔜 When you're ready to scale
+When ready to move beyond the demo:
 
 | Feature | What to add |
 |---|---|
 | Real store data | Replace `ziggysDatabase.js` with a REST API or Firebase |
-| Auth | Add Firebase Auth or Supabase |
-| QR code cart | Add `react-qr-reader` for scanning |
-| Admin panel | Separate React app for store managers to update products/coupons |
-| Analytics | Add Posthog or Mixpanel for tracking aisle engagement |
-
----
-
-## 📞 Sales Pitch Summary
-
-> *"SmartCart is a plug-and-play SaaS app that any grocery store can white-label. Stores give us their product-aisle data — we handle the rest. Customers get real-time navigation and coupons; stores get engagement data and a new revenue channel. Starting at $X/month per location."*
+| Auth | Firebase Auth or Supabase |
+| QR code scanning | `react-qr-reader` for scanning barcodes in-store |
+| Admin panel | Separate React app for managers to update products and coupons |
+| Analytics | Posthog or Mixpanel for tracking aisle engagement |
