@@ -309,9 +309,9 @@ export default function CartPage() {
           <div className="checkout-modal animate-fadeup">
             <CheckoutModal
               finalTotal={finalTotal}
-              cartSavings={cartSavings}
+              cartSavings={cartSavings + totalDealSavings}
               onClose={() => setShowCheckout(false)}
-              onComplete={() => {}}
+              onComplete={() => navigate("/summary")}
             />
           </div>
         </div>

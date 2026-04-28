@@ -134,7 +134,7 @@ export default function MapPage() {
   const isDone = navStepIndex >= activeRoute.length;
 
   if (isDone) {
-    navigate("/summary");
+    navigate("/cart");
     return null;
   }
 
@@ -298,7 +298,7 @@ export default function MapPage() {
 
       {/* Next button */}
       <button
-        onClick={() => { if (isLastAisle) navigate("/summary"); else nextAisle(); }}
+        onClick={() => { if (isLastAisle) navigate("/cart"); else nextAisle(); }}
         style={{
           width: "100%", padding: "16px",
           background: "#15803d", color: "white",
