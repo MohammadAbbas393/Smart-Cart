@@ -276,6 +276,7 @@ export default function CartPage() {
     cartItems, updateQuantity, removeFromCart, clearCart,
     cartTotal, cartSavings, cartCount,
     activeRoute, generateRoute,
+    totalDealSavings, clippedDeals,
   } = useCart();
   const [showCheckout, setShowCheckout] = useState(false);
   const navigate = useNavigate();
@@ -298,7 +299,7 @@ export default function CartPage() {
     );
   }
 
-  const finalTotal = cartTotal - cartSavings;
+  const finalTotal = Math.max(0, cartTotal - cartSavings - totalDealSavings);
 
   return (
     <div className="page animate-fadeup">
@@ -396,6 +397,14 @@ export default function CartPage() {
                   <span style={{ color: "var(--orange-600)", fontWeight: 700 }}>−${cartSavings.toFixed(2)}</span>
                 </div>
               )}
+              {totalDealSavings > 0 && (
+                <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.9rem" }}>
+                  <span style={{ color: "#15803d", display: "flex", alignItems: "center", gap: 4 }}>
+                    💰 Clipped Deals ({clippedDeals.length})
+                  </span>
+                  <span style={{ color: "#15803d", fontWeight: 700 }}>−${totalDealSavings.toFixed(2)}</span>
+                </div>
+              )}
               <div style={{ height: 1, background: "var(--gray-100)", margin: "4px 0" }} />
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <span style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1rem" }}>Total</span>
@@ -403,9 +412,9 @@ export default function CartPage() {
                   ${finalTotal.toFixed(2)}
                 </span>
               </div>
-              {cartSavings > 0 && (
+              {(cartSavings + totalDealSavings) > 0 && (
                 <div style={{ background: "var(--orange-50)", borderRadius: "var(--radius-md)", padding: "10px 14px", fontSize: "0.82rem", color: "var(--orange-600)", fontWeight: 600, textAlign: "center" }}>
-                  🎉 You're saving ${cartSavings.toFixed(2)} with coupons!
+                  🎉 You're saving ${(cartSavings + totalDealSavings).toFixed(2)} total!
                 </div>
               )}
             </div>

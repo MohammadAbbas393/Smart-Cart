@@ -168,6 +168,23 @@ export default function CheckoutSummaryPage() {
       >
         Done — Back to Home
       </button>
+
+      <div style={{
+        maxWidth: 480, width: "100%", marginTop: 20,
+        padding: "14px 18px", borderRadius: 12,
+        background: "#f0fdf4", border: "1px solid #86efac",
+        display: "flex", alignItems: "flex-start", gap: 10,
+      }}>
+        <span style={{ fontSize: 18, flexShrink: 0 }}>📊</span>
+        <div>
+          <div style={{ fontSize: 13, fontWeight: 700, color: "#15803d", marginBottom: 2 }}>
+            Your trip data helps the store
+          </div>
+          <div style={{ fontSize: 12, color: "#4ade80" }}>
+            {selectedStore?.name || "This store"} receives anonymized analytics from your visit — which deals were clipped, which aisles were visited, and what was purchased. This helps them stock better and offer more relevant deals.
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

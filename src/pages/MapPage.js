@@ -50,18 +50,29 @@ function DealCard({ deal, type, clipped, onClip, onUnclip }) {
           {savings && (
             <div style={{ fontSize: 15, fontWeight: 800, color: isStore ? "#92400e" : "#be123c" }}>{savings}</div>
           )}
-          <button
-            onClick={() => clipped ? onUnclip(deal.id) : onClip(deal)}
-            style={{
-              padding: "5px 12px", borderRadius: 8, border: "none", cursor: "pointer",
-              fontSize: 12, fontWeight: 700,
-              background: clipped ? "#dcfce7" : "#15803d",
-              color: clipped ? "#15803d" : "white",
-              transition: "all .15s", whiteSpace: "nowrap",
-            }}
-          >
-            {clipped ? "✓ Clipped" : "Clip deal"}
-          </button>
+          {clipped ? (
+            <button
+              onClick={() => onUnclip(deal.id)}
+              style={{ padding: "5px 12px", borderRadius: 8, border: "none", cursor: "pointer", fontSize: 12, fontWeight: 700, background: "#dcfce7", color: "#15803d", whiteSpace: "nowrap" }}
+            >
+              ✓ Clipped
+            </button>
+          ) : (
+            <div style={{ display: "flex", gap: 5 }}>
+              <button
+                onClick={() => onClip(deal)}
+                style={{ padding: "5px 10px", borderRadius: 8, border: "none", cursor: "pointer", fontSize: 12, fontWeight: 700, background: "#15803d", color: "white", whiteSpace: "nowrap" }}
+              >
+                Clip
+              </button>
+              <button
+                onClick={() => {}}
+                style={{ padding: "5px 10px", borderRadius: 8, border: "1px solid #d1d5db", cursor: "pointer", fontSize: 12, fontWeight: 600, background: "white", color: "#9ca3af", whiteSpace: "nowrap" }}
+              >
+                Skip
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
