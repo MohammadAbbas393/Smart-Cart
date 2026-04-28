@@ -358,3 +358,155 @@ export function calculateSavings(cartItems) {
   });
   return { total, savings, finalTotal: total - savings };
 }
+
+// ------------------------------------------------------------
+//  PRODUCT SHELF LOCATIONS  (shown in aisle navigator)
+// ------------------------------------------------------------
+export const PRODUCT_LOCATIONS = {
+  p001: "Entrance bin display",      p002: "Right side · eye level",
+  p003: "Center table display",      p004: "End of aisle · refrigerated",
+  p005: "Left side · middle shelf",  p006: "Center bin",
+  p007: "Left side · lower shelf",
+  b001: "Front shelf",               b002: "Center display",
+  b003: "Right side · eye level",    b004: "Left side",
+  a1001: "Left side · eye level",    a1002: "Left side · lower shelf",
+  a1003: "Right side · eye level",   a1004: "Right side · top shelf",
+  a1005: "Left side · top shelf",
+  a2001: "Left side · eye level",    a2002: "Right side · eye level",
+  a2003: "Right side · lower shelf", a2004: "Left side · top shelf",
+  a2005: "End cap",
+  a3001: "Left side · eye level",    a3002: "Center display",
+  a3003: "Right side · lower shelf", a3004: "Right side · eye level",
+  a3005: "Left side · lower shelf",
+  a4001: "Left side · eye level",    a4002: "Left side · lower shelf",
+  a4003: "Right side · eye level",   a4004: "Right side · top shelf",
+  a4005: "End cap",
+  a5001: "Left side · top shelf",    a5002: "Left side · eye level",
+  a5003: "Floor display",            a5004: "Right side · lower shelf",
+  a5005: "Right side · eye level",
+  a6001: "Refrigerated · left door", a6002: "Refrigerated · center door",
+  a6003: "Refrigerated · right door",a6004: "Refrigerated · left door",
+  a6005: "Refrigerated · center door",
+  a7001: "Butcher counter",          a7002: "Refrigerated · left case",
+  a7003: "Refrigerated · center case",a7004: "Refrigerated · right case",
+  a7005: "Refrigerated · end case",
+  a8001: "Right side · eye level",   a8002: "Left side · top shelf",
+  a8003: "Left side · lower shelf",  a8004: "Right side · lower shelf",
+  a8005: "Right side · top shelf",
+  d001: "Deli counter · ask staff",  d002: "Deli counter · ask staff",
+  d003: "Deli counter · ask staff",
+  f001: "Frozen · aisle A · door 3", f002: "Frozen · aisle B · door 5",
+  f003: "Frozen · aisle C · door 8", f004: "Frozen · aisle A · door 2",
+  f005: "Frozen · aisle B · door 4",
+};
+
+// ------------------------------------------------------------
+//  AISLE DEALS  (store promos + Ibotta-style coupons per aisle)
+//  savings: dollar amount; percent: true/false for % discounts
+// ------------------------------------------------------------
+export const AISLE_DEALS = {
+  P: {
+    storeDeals: [
+      { id: "sd-p1", product: "Strawberries", detail: "Buy 1 lb, get 1 free", savings: 1.99, productId: "p005" },
+      { id: "sd-p2", product: "Organic Apples", detail: "$0.50 off per lb this week", savings: 0.50, productId: "p003" },
+    ],
+    ibottaCoupons: [
+      { id: "ib-p1", product: "Bananas", detail: "$0.25 cash back on any purchase", savings: 0.25, productId: "p001" },
+    ],
+  },
+  B: {
+    storeDeals: [
+      { id: "sd-b1", product: "Sourdough Bread", detail: "2 loaves for $5.00", savings: 1.00, productId: "b001" },
+    ],
+    ibottaCoupons: [
+      { id: "ib-b1", product: "Bagels", detail: "$0.50 cash back any bagels", savings: 0.50, productId: "b003" },
+    ],
+  },
+  1: {
+    storeDeals: [
+      { id: "sd-1a", product: "Cheerios (18oz)", detail: "Buy 2 save $1.50", savings: 1.50, productId: "a1001" },
+      { id: "sd-1b", product: "Nature Valley Bars", detail: "$1.00 off any variety", savings: 1.00, productId: "a1003" },
+    ],
+    ibottaCoupons: [
+      { id: "ib-1a", product: "Quaker Oats (42oz)", detail: "$1.00 cash back", savings: 1.00, productId: "a1002" },
+      { id: "ib-1b", product: "Cheerios", detail: "$0.50 manufacturer cash back", savings: 0.50, productId: "a1001" },
+    ],
+  },
+  2: {
+    storeDeals: [
+      { id: "sd-2a", product: "Lay's Chips", detail: "2 bags for $6.00", savings: 1.00, productId: "a2001" },
+    ],
+    ibottaCoupons: [
+      { id: "ib-2a", product: "Doritos", detail: "$0.75 cash back on any bag", savings: 0.75, productId: "a2002" },
+      { id: "ib-2b", product: "CLIF Bar 5-pack", detail: "$1.00 cash back", savings: 1.00, productId: "a2004" },
+    ],
+  },
+  3: {
+    storeDeals: [
+      { id: "sd-3a", product: "Heinz Ketchup", detail: "Buy 2, get $1.00 off", savings: 1.00, productId: "a3002" },
+    ],
+    ibottaCoupons: [
+      { id: "ib-3a", product: "Campbell's Soup", detail: "$0.50 cash back on any variety", savings: 0.50, productId: "a3001" },
+      { id: "ib-3b", product: "Del Monte Corn", detail: "$0.25 cash back per can", savings: 0.25, productId: "a3003" },
+    ],
+  },
+  4: {
+    storeDeals: [
+      { id: "sd-4a", product: "Barilla Pasta", detail: "3 boxes for $4.00", savings: 1.50, productId: "a4001" },
+    ],
+    ibottaCoupons: [
+      { id: "ib-4a", product: "Barilla Spaghetti", detail: "$0.50 cash back", savings: 0.50, productId: "a4001" },
+      { id: "ib-4b", product: "Uncle Ben's Rice", detail: "$1.00 cash back", savings: 1.00, productId: "a4003" },
+    ],
+  },
+  5: {
+    storeDeals: [
+      { id: "sd-5a", product: "Coca-Cola 12pk", detail: "$2.00 off this week only", savings: 2.00, productId: "a5003" },
+    ],
+    ibottaCoupons: [
+      { id: "ib-5a", product: "Tropicana OJ (52oz)", detail: "$1.00 cash back", savings: 1.00, productId: "a5001" },
+      { id: "ib-5b", product: "Coca-Cola 12pk", detail: "$1.00 manufacturer cash back", savings: 1.00, productId: "a5003" },
+    ],
+  },
+  6: {
+    storeDeals: [
+      { id: "sd-6a", product: "Large Eggs", detail: "$0.75 off 1 dozen", savings: 0.75, productId: "a6003" },
+      { id: "sd-6b", product: "Shredded Cheddar", detail: "Buy 2 bags, save $1.50", savings: 1.50, productId: "a6004" },
+    ],
+    ibottaCoupons: [
+      { id: "ib-6a", product: "Yoplait Yogurt 4-pack", detail: "$0.50 cash back", savings: 0.50, productId: "a6002" },
+    ],
+  },
+  7: {
+    storeDeals: [
+      { id: "sd-7a", product: "Chicken Breast", detail: "10% off all chicken this week", savings: null, isPercent: true, percentOff: 10, productId: "a7002" },
+    ],
+    ibottaCoupons: [
+      { id: "ib-7a", product: "Salmon Fillet", detail: "$1.50 cash back per lb", savings: 1.50, productId: "a7003" },
+      { id: "ib-7b", product: "Pork Chops", detail: "$0.75 cash back", savings: 0.75, productId: "a7004" },
+    ],
+  },
+  8: {
+    storeDeals: [
+      { id: "sd-8a", product: "Tide Pods (32ct)", detail: "$3.00 off this week only", savings: 3.00, productId: "a8001" },
+    ],
+    ibottaCoupons: [
+      { id: "ib-8a", product: "Bounty Paper Towels", detail: "$1.00 cash back on 6-pack", savings: 1.00, productId: "a8002" },
+      { id: "ib-8b", product: "Dawn Dish Soap", detail: "$0.50 cash back", savings: 0.50, productId: "a8005" },
+    ],
+  },
+  D: {
+    storeDeals: [
+      { id: "sd-d1", product: "Boar's Head Ham", detail: "$1.00 off per lb today", savings: 1.00, productId: "d001" },
+    ],
+    ibottaCoupons: [],
+  },
+  F: {
+    storeDeals: [
+      { id: "sd-f1", product: "Ben & Jerry's", detail: "2 pints for $9.00", savings: 1.98, productId: "f002" },
+    ],
+    ibottaCoupons: [
+      { id: "ib-f1", product: "DiGiorno Pizza", detail: "$1.50 cash back", savings: 1.50, productId: "f001" },
+    ],
+  },
+};

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Navigation, ShoppingCart, Trash2, Tag, X, ChevronRight, Check } from "lucide-react";
 import { AISLE_DIRECTORY } from "../data/ziggysDatabase";
 import { useCart } from "../context/CartContext";
@@ -278,6 +278,12 @@ export default function CartPage() {
     activeRoute, generateRoute,
   } = useCart();
   const [showCheckout, setShowCheckout] = useState(false);
+  const navigate = useNavigate();
+
+  const handleStartShopping = () => {
+    generateRoute();
+    navigate("/navigate");
+  };
 
   if (cartItems.length === 0) {
     return (
@@ -405,10 +411,17 @@ export default function CartPage() {
             </div>
             <button
               className="btn btn-primary"
-              style={{ width: "100%", justifyContent: "center", marginTop: 16, padding: 14 }}
+              style={{ width: "100%", justifyContent: "center", marginTop: 16, padding: 16, fontSize: "1rem", fontWeight: 800 }}
+              onClick={handleStartShopping}
+            >
+              🛒 Start Shopping →
+            </button>
+            <button
+              className="btn btn-ghost btn-sm"
+              style={{ width: "100%", justifyContent: "center", marginTop: 8 }}
               onClick={() => setShowCheckout(true)}
             >
-              Proceed to Checkout →
+              Skip navigation — Checkout now
             </button>
           </div>
 
@@ -443,8 +456,8 @@ export default function CartPage() {
                     </div>
                   ))}
                 </div>
-                <Link to="/map" className="btn btn-outline btn-sm" style={{ width: "100%", justifyContent: "center" }}>
-                  Navigate on Map →
+                <Link to="/map" className="btn btn-primary btn-sm" style={{ width: "100%", justifyContent: "center" }}>
+                  Go to Map →
                 </Link>
               </div>
             )}

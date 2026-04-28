@@ -7,6 +7,8 @@ export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState([]);
   const [shoppingList, setShoppingList] = useState([]);
   const [activeRoute, setActiveRoute] = useState([]);
+  const [clippedDeals, setClippedDeals] = useState([]);
+  const [navStepIndex, setNavStepIndex] = useState(0);
 
   const addToCart = (product) => {
     setCartItems(prev => {
@@ -32,7 +34,12 @@ export function CartProvider({ children }) {
     );
   };
 
-  const clearCart = () => setCartItems([]);
+  const clearCart = () => {
+    setCartItems([]);
+    setClippedDeals([]);
+    setActiveRoute([]);
+    setNavStepIndex(0);
+  };
 
   const cartTotal = cartItems.reduce((sum, i) => sum + i.product.price * i.quantity, 0);
   const cartSavings = cartItems.reduce((sum, i) => {
@@ -44,15 +51,31 @@ export function CartProvider({ children }) {
   }, 0);
   const cartCount = cartItems.reduce((sum, i) => sum + i.quantity, 0);
 
-  // Generate optimized route from cart items
   const generateRoute = () => {
     const aisles = [...new Set(cartItems.map(i => i.product.aisle))];
-    // Sort: produce first, then numbered aisles, then deli/frozen/bakery, checkout last
     const order = ["P", "B", 1, 2, 3, 4, 5, 6, 7, 8, "D", "F"];
     const sorted = aisles.sort((a, b) => order.indexOf(a) - order.indexOf(b));
     setActiveRoute(sorted);
+    setNavStepIndex(0);
     return sorted;
   };
+
+  const clipDeal = (deal) => {
+    setClippedDeals(prev => {
+      if (prev.find(d => d.id === deal.id)) return prev;
+      return [...prev, deal];
+    });
+  };
+
+  const unclipDeal = (dealId) => {
+    setClippedDeals(prev => prev.filter(d => d.id !== dealId));
+  };
+
+  const isDealClipped = (dealId) => clippedDeals.some(d => d.id === dealId);
+
+  const nextAisle = () => setNavStepIndex(prev => prev + 1);
+
+  const totalDealSavings = clippedDeals.reduce((sum, d) => sum + (d.savings || 0), 0);
 
   return (
     <CartContext.Provider value={{
@@ -60,6 +83,8 @@ export function CartProvider({ children }) {
       cartTotal, cartSavings, cartCount,
       shoppingList, setShoppingList,
       activeRoute, generateRoute,
+      clippedDeals, clipDeal, unclipDeal, isDealClipped, totalDealSavings,
+      navStepIndex, nextAisle,
     }}>
       {children}
     </CartContext.Provider>
